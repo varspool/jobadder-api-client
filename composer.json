@@ -26,5 +26,10 @@
             "Varspool\\JobAdder\\": "src/",
             "Varspool\\JobAdder\\V2\\": "generated/"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Varspool\\JobAdder\\": "tests/"
+        }
     }
 }
