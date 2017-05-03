@@ -1,0 +1,18 @@
+#!/bin/bash
+#
+# Generates the API classes using jane-openapi
+#
+
+set -e
+
+if [[ ! -f composer.json || ! -f .jane-openapi ]]; then
+    echo "You should run this within the jobadder-api-client directory" >&2
+    exit 2
+fi
+
+if [[ ! -d vendor/bin ]]; then
+    echo "Couldn't find vendor/bin directory; maybe you need to run composer install?" >&2
+    exit 3
+fi
+
+exec vendor/bin/jane-openapi generate "$@"

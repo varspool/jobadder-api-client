@@ -1,0 +1,8 @@
+<?php
+
+return [
+    'openapi-file' => 'https://api.jobadder.com/v2/openapi.json',
+    'namespace'    => 'Varspool\JobAdder\V2',
+    'directory'    => __DIR__ . '/generated',
+    'reference'    => true,
+];
