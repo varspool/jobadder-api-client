@@ -10,6 +10,7 @@ class ClientTest extends TestCase
     public function testConstructor()
     {
         $http = $this->createMock(HttpClient::class);
-        $this->client = new Client($http);
+        $client = new Client($http);
+        $this->assertInstanceOf(Client::class, $client);
     }
 }

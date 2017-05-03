@@ -4,6 +4,7 @@ namespace Varspool\JobAdder;
 
 use Http\Message\MessageFactory;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
+use Joli\Jane\OpenApi\Runtime\Client\Resource;
 use Joli\Jane\Runtime\Encoder\RawEncoder;
 use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
