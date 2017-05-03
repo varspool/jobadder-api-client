@@ -7,6 +7,7 @@
     convertWarningsToExceptions="true"
     backupGlobals="true"
     backupStaticAttributes="false"
+    bootstrap="vendor/autoload.php"
     processIsolation="false"
     timeoutForSmallTests="1"
     timeoutForMediumTests="5"
