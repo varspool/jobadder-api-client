@@ -48,7 +48,7 @@ class Client extends Resources
             $messageFactory = new GuzzleMessageFactory();
         }
 
-        $this->messageFactory = $messageFactory;
+        $this->messageFactory = new HostReplacementMessageFactory($messageFactory);
         $this->serializer = $serializer;
     }
 
