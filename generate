@@ -15,4 +15,4 @@ if [[ ! -d vendor/bin ]]; then
     exit 3
 fi
 
-exec vendor/bin/jane-openapi generate "$@"
+exec vendor/bin/jane-openapi generate --date-format='Y-m-d\TH:i:s' "$@"
