@@ -13,13 +13,29 @@ class CompanyRepresentation
      */
     protected $name;
     /**
-     * @var ContactNameModel
-     */
-    protected $mainContact;
-    /**
      * @var StatusModel
      */
     protected $status;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $createdBy;
+    /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $updatedBy;
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
+    /**
+     * @var ContactNameModel
+     */
+    protected $mainContact;
     /**
      * @var CompanyAddressModel
      */
@@ -40,22 +56,6 @@ class CompanyRepresentation
      * @var UserSummaryModel[]
      */
     protected $recruiters;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $createdBy;
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $updatedBy;
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
     /**
      * @var CompanyLinks
      */
@@ -102,26 +102,6 @@ class CompanyRepresentation
     }
 
     /**
-     * @return ContactNameModel
-     */
-    public function getMainContact()
-    {
-        return $this->mainContact;
-    }
-
-    /**
-     * @param ContactNameModel $mainContact
-     *
-     * @return self
-     */
-    public function setMainContact(ContactNameModel $mainContact = null)
-    {
-        $this->mainContact = $mainContact;
-
-        return $this;
-    }
-
-    /**
      * @return StatusModel
      */
     public function getStatus()
@@ -137,6 +117,106 @@ class CompanyRepresentation
     public function setStatus(StatusModel $status = null)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param UserSummaryModel $createdBy
+     *
+     * @return self
+     */
+    public function setCreatedBy(UserSummaryModel $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param UserSummaryModel $updatedBy
+     *
+     * @return self
+     */
+    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     *
+     * @return self
+     */
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return ContactNameModel
+     */
+    public function getMainContact()
+    {
+        return $this->mainContact;
+    }
+
+    /**
+     * @param ContactNameModel $mainContact
+     *
+     * @return self
+     */
+    public function setMainContact(ContactNameModel $mainContact = null)
+    {
+        $this->mainContact = $mainContact;
 
         return $this;
     }
@@ -237,86 +317,6 @@ class CompanyRepresentation
     public function setRecruiters(array $recruiters = null)
     {
         $this->recruiters = $recruiters;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param UserSummaryModel $createdBy
-     *
-     * @return self
-     */
-    public function setCreatedBy(UserSummaryModel $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    /**
-     * @param UserSummaryModel $updatedBy
-     *
-     * @return self
-     */
-    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

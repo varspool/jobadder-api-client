@@ -29,7 +29,7 @@ class UserGroupsResource extends Resource
         $queryParam->setDefault('userId', null);
         $url     = '/v2/usergroups';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -59,7 +59,7 @@ class UserGroupsResource extends Resource
         $url        = '/v2/usergroups/{groupId}';
         $url        = str_replace('{groupId}', urlencode($groupId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -89,7 +89,7 @@ class UserGroupsResource extends Resource
         $url        = '/v2/usergroups/{groupId}/users';
         $url        = str_replace('{groupId}', urlencode($groupId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);

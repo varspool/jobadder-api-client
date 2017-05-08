@@ -16,6 +16,7 @@ class CompaniesResource extends Resource
      *     @var array $companyId Companies by Id
      *     @var array $parentId Find subsidiaries of specified parent companies
      *     @var array $subsidiaryId Find parents of specified subsidiaries
+     *     @var array $statusId Company status
      *     @var array $createdBy User Id - search for companies created by the specified user(s)
      *     @var array $createdAt Search for companies created at a specific date and time
      *     @var array $updatedBy User Id - search for companies last updated by the specified user(s)
@@ -34,13 +35,14 @@ class CompaniesResource extends Resource
         $queryParam->setDefault('companyId', null);
         $queryParam->setDefault('parentId', null);
         $queryParam->setDefault('subsidiaryId', null);
+        $queryParam->setDefault('statusId', null);
         $queryParam->setDefault('createdBy', null);
         $queryParam->setDefault('createdAt', null);
         $queryParam->setDefault('updatedBy', null);
         $queryParam->setDefault('updatedAt', null);
         $url     = '/v2/companies';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -75,7 +77,7 @@ class CompaniesResource extends Resource
         $queryParam->setHeaderParameters(['X-Allow-Duplicates']);
         $url     = '/v2/companies';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
         $body    = $this->serializer->serialize($body, 'json');
         $request = $this->messageFactory->createRequest('POST', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -111,7 +113,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -151,7 +153,7 @@ class CompaniesResource extends Resource
         $url     = '/v2/companies/{companyId}';
         $url     = str_replace('{companyId}', urlencode($companyId), $url);
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
         $body    = $this->serializer->serialize($body, 'json');
         $request = $this->messageFactory->createRequest('PUT', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -184,7 +186,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/addresses';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -216,7 +218,7 @@ class CompaniesResource extends Resource
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = str_replace('{addressId}', urlencode($addressId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -246,7 +248,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/contacts';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -276,7 +278,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/floats';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -306,7 +308,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/jobs';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -336,7 +338,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/jobs/active';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -366,7 +368,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/notes';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -397,7 +399,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/notes';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
         $body       = $this->serializer->serialize($command, 'json');
         $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -422,7 +424,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/placements';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -452,7 +454,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/placements/approved';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -482,7 +484,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/requisitions';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -512,7 +514,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/submissions';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -542,7 +544,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/{companyId}/subsidiaries';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -579,7 +581,7 @@ class CompaniesResource extends Resource
         $url     = str_replace('{companyId}', urlencode($companyId), $url);
         $url     = str_replace('{workflowType}', urlencode($workflowType), $url);
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -613,7 +615,7 @@ class CompaniesResource extends Resource
         $url        = str_replace('{workflowType}', urlencode($workflowType), $url);
         $url        = str_replace('{workflowId}', urlencode($workflowId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -641,7 +643,7 @@ class CompaniesResource extends Resource
         $queryParam = new QueryParam();
         $url        = '/v2/companies/fields/custom';
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -671,7 +673,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/fields/custom/{fieldId}';
         $url        = str_replace('{fieldId}', urlencode($fieldId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -704,7 +706,7 @@ class CompaniesResource extends Resource
         $queryParam->setDefault('name', null);
         $url     = '/v2/companies/lists/notetype';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -743,7 +745,7 @@ class CompaniesResource extends Resource
         $queryParam->setDefault('default', null);
         $url     = '/v2/companies/lists/status';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -773,7 +775,7 @@ class CompaniesResource extends Resource
         $url        = '/v2/companies/lists/status/{statusId}';
         $url        = str_replace('{statusId}', urlencode($statusId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);

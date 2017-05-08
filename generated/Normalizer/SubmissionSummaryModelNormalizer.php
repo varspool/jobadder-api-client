@@ -51,6 +51,18 @@ class SubmissionSummaryModelNormalizer extends SerializerAwareNormalizer impleme
         if (property_exists($data, 'job')) {
             $object->setJob($this->serializer->deserialize($data->{'job'}, 'Varspool\\JobAdder\\V2\\Model\\JobOrderSummaryModel', 'raw', $context));
         }
+        if (property_exists($data, 'createdBy')) {
+            $object->setCreatedBy($this->serializer->deserialize($data->{'createdBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'createdAt')) {
+            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
+        }
+        if (property_exists($data, 'updatedBy')) {
+            $object->setUpdatedBy($this->serializer->deserialize($data->{'updatedBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'updatedAt')) {
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
+        }
 
         return $object;
     }
@@ -72,6 +84,18 @@ class SubmissionSummaryModelNormalizer extends SerializerAwareNormalizer impleme
         }
         if (null !== $object->getJob()) {
             $data->{'job'} = $this->serializer->serialize($object->getJob(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedBy()) {
+            $data->{'createdBy'} = $this->serializer->serialize($object->getCreatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedAt()) {
+            $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+        }
+        if (null !== $object->getUpdatedBy()) {
+            $data->{'updatedBy'} = $this->serializer->serialize($object->getUpdatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getUpdatedAt()) {
+            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         }
 
         return $data;

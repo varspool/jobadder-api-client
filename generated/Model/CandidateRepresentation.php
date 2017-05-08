@@ -29,14 +29,6 @@ class CandidateRepresentation
      */
     protected $mobile;
     /**
-     * @var string[]
-     */
-    protected $otherEmail;
-    /**
-     * @var string[]
-     */
-    protected $social;
-    /**
      * @var AddressModel
      */
     protected $address;
@@ -52,6 +44,30 @@ class CandidateRepresentation
      * @var string
      */
     protected $source;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $createdBy;
+    /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $updatedBy;
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
+    /**
+     * @var string[]
+     */
+    protected $otherEmail;
+    /**
+     * @var string[]
+     */
+    protected $social;
     /**
      * @var EmploymentModel
      */
@@ -76,22 +92,6 @@ class CandidateRepresentation
      * @var UserSummaryModel[]
      */
     protected $recruiters;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $createdBy;
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $updatedBy;
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
     /**
      * @var CandidateLinks
      */
@@ -218,46 +218,6 @@ class CandidateRepresentation
     }
 
     /**
-     * @return string[]
-     */
-    public function getOtherEmail()
-    {
-        return $this->otherEmail;
-    }
-
-    /**
-     * @param string[] $otherEmail
-     *
-     * @return self
-     */
-    public function setOtherEmail(array $otherEmail = null)
-    {
-        $this->otherEmail = $otherEmail;
-
-        return $this;
-    }
-
-    /**
-     * @return string[]
-     */
-    public function getSocial()
-    {
-        return $this->social;
-    }
-
-    /**
-     * @param string[] $social
-     *
-     * @return self
-     */
-    public function setSocial(\ArrayObject $social = null)
-    {
-        $this->social = $social;
-
-        return $this;
-    }
-
-    /**
      * @return AddressModel
      */
     public function getAddress()
@@ -333,6 +293,126 @@ class CandidateRepresentation
     public function setSource($source = null)
     {
         $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param UserSummaryModel $createdBy
+     *
+     * @return self
+     */
+    public function setCreatedBy(UserSummaryModel $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param UserSummaryModel $updatedBy
+     *
+     * @return self
+     */
+    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     *
+     * @return self
+     */
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getOtherEmail()
+    {
+        return $this->otherEmail;
+    }
+
+    /**
+     * @param string[] $otherEmail
+     *
+     * @return self
+     */
+    public function setOtherEmail(array $otherEmail = null)
+    {
+        $this->otherEmail = $otherEmail;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSocial()
+    {
+        return $this->social;
+    }
+
+    /**
+     * @param string[] $social
+     *
+     * @return self
+     */
+    public function setSocial(\ArrayObject $social = null)
+    {
+        $this->social = $social;
 
         return $this;
     }
@@ -453,86 +533,6 @@ class CandidateRepresentation
     public function setRecruiters(array $recruiters = null)
     {
         $this->recruiters = $recruiters;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param UserSummaryModel $createdBy
-     *
-     * @return self
-     */
-    public function setCreatedBy(UserSummaryModel $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    /**
-     * @param UserSummaryModel $updatedBy
-     *
-     * @return self
-     */
-    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
 
         return $this;
     }

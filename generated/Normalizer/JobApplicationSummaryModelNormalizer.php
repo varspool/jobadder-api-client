@@ -45,11 +45,14 @@ class JobApplicationSummaryModelNormalizer extends SerializerAwareNormalizer imp
         if (property_exists($data, 'jobReference')) {
             $object->setJobReference($data->{'jobReference'});
         }
-        if (property_exists($data, 'status')) {
-            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\JobApplicationStatusModel', 'raw', $context));
-        }
         if (property_exists($data, 'manual')) {
             $object->setManual($data->{'manual'});
+        }
+        if (property_exists($data, 'source')) {
+            $object->setSource($data->{'source'});
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\JobApplicationStatusModel', 'raw', $context));
         }
         if (property_exists($data, 'candidate')) {
             $object->setCandidate($this->serializer->deserialize($data->{'candidate'}, 'Varspool\\JobAdder\\V2\\Model\\CandidateSummaryModel', 'raw', $context));
@@ -62,6 +65,9 @@ class JobApplicationSummaryModelNormalizer extends SerializerAwareNormalizer imp
         }
         if (property_exists($data, 'createdAt')) {
             $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
+        }
+        if (property_exists($data, 'updatedAt')) {
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
         }
 
         return $object;
@@ -79,11 +85,14 @@ class JobApplicationSummaryModelNormalizer extends SerializerAwareNormalizer imp
         if (null !== $object->getJobReference()) {
             $data->{'jobReference'} = $object->getJobReference();
         }
-        if (null !== $object->getStatus()) {
-            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
-        }
         if (null !== $object->getManual()) {
             $data->{'manual'} = $object->getManual();
+        }
+        if (null !== $object->getSource()) {
+            $data->{'source'} = $object->getSource();
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
         }
         if (null !== $object->getCandidate()) {
             $data->{'candidate'} = $this->serializer->serialize($object->getCandidate(), 'raw', $context);
@@ -96,6 +105,9 @@ class JobApplicationSummaryModelNormalizer extends SerializerAwareNormalizer imp
         }
         if (null !== $object->getCreatedAt()) {
             $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+        }
+        if (null !== $object->getUpdatedAt()) {
+            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         }
 
         return $data;

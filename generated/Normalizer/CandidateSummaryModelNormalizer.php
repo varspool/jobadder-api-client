@@ -54,6 +54,30 @@ class CandidateSummaryModelNormalizer extends SerializerAwareNormalizer implemen
         if (property_exists($data, 'mobile')) {
             $object->setMobile($data->{'mobile'});
         }
+        if (property_exists($data, 'address')) {
+            $object->setAddress($this->serializer->deserialize($data->{'address'}, 'Varspool\\JobAdder\\V2\\Model\\AddressModel', 'raw', $context));
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\StatusModel', 'raw', $context));
+        }
+        if (property_exists($data, 'rating')) {
+            $object->setRating($data->{'rating'});
+        }
+        if (property_exists($data, 'source')) {
+            $object->setSource($data->{'source'});
+        }
+        if (property_exists($data, 'createdBy')) {
+            $object->setCreatedBy($this->serializer->deserialize($data->{'createdBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'createdAt')) {
+            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
+        }
+        if (property_exists($data, 'updatedBy')) {
+            $object->setUpdatedBy($this->serializer->deserialize($data->{'updatedBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'updatedAt')) {
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
+        }
 
         return $object;
     }
@@ -78,6 +102,30 @@ class CandidateSummaryModelNormalizer extends SerializerAwareNormalizer implemen
         }
         if (null !== $object->getMobile()) {
             $data->{'mobile'} = $object->getMobile();
+        }
+        if (null !== $object->getAddress()) {
+            $data->{'address'} = $this->serializer->serialize($object->getAddress(), 'raw', $context);
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
+        }
+        if (null !== $object->getRating()) {
+            $data->{'rating'} = $object->getRating();
+        }
+        if (null !== $object->getSource()) {
+            $data->{'source'} = $object->getSource();
+        }
+        if (null !== $object->getCreatedBy()) {
+            $data->{'createdBy'} = $this->serializer->serialize($object->getCreatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedAt()) {
+            $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+        }
+        if (null !== $object->getUpdatedBy()) {
+            $data->{'updatedBy'} = $this->serializer->serialize($object->getUpdatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getUpdatedAt()) {
+            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         }
 
         return $data;

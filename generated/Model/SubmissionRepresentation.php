@@ -25,22 +25,6 @@ class SubmissionRepresentation
      */
     protected $job;
     /**
-     * @var string
-     */
-    protected $candidateSummary;
-    /**
-     * @var JobApplicationSummaryModel
-     */
-    protected $jobApplication;
-    /**
-     * @var ContactSummaryModel[]
-     */
-    protected $contacts;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $owner;
-    /**
      * @var UserSummaryModel
      */
     protected $createdBy;
@@ -56,6 +40,22 @@ class SubmissionRepresentation
      * @var \DateTime
      */
     protected $updatedAt;
+    /**
+     * @var string
+     */
+    protected $candidateSummary;
+    /**
+     * @var JobApplicationSummaryModel
+     */
+    protected $jobApplication;
+    /**
+     * @var ContactSummaryModel[]
+     */
+    protected $contacts;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $owner;
     /**
      * @var SubmissionLinks
      */
@@ -162,86 +162,6 @@ class SubmissionRepresentation
     }
 
     /**
-     * @return string
-     */
-    public function getCandidateSummary()
-    {
-        return $this->candidateSummary;
-    }
-
-    /**
-     * @param string $candidateSummary
-     *
-     * @return self
-     */
-    public function setCandidateSummary($candidateSummary = null)
-    {
-        $this->candidateSummary = $candidateSummary;
-
-        return $this;
-    }
-
-    /**
-     * @return JobApplicationSummaryModel
-     */
-    public function getJobApplication()
-    {
-        return $this->jobApplication;
-    }
-
-    /**
-     * @param JobApplicationSummaryModel $jobApplication
-     *
-     * @return self
-     */
-    public function setJobApplication(JobApplicationSummaryModel $jobApplication = null)
-    {
-        $this->jobApplication = $jobApplication;
-
-        return $this;
-    }
-
-    /**
-     * @return ContactSummaryModel[]
-     */
-    public function getContacts()
-    {
-        return $this->contacts;
-    }
-
-    /**
-     * @param ContactSummaryModel[] $contacts
-     *
-     * @return self
-     */
-    public function setContacts(array $contacts = null)
-    {
-        $this->contacts = $contacts;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getOwner()
-    {
-        return $this->owner;
-    }
-
-    /**
-     * @param UserSummaryModel $owner
-     *
-     * @return self
-     */
-    public function setOwner(UserSummaryModel $owner = null)
-    {
-        $this->owner = $owner;
-
-        return $this;
-    }
-
-    /**
      * @return UserSummaryModel
      */
     public function getCreatedBy()
@@ -317,6 +237,86 @@ class SubmissionRepresentation
     public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCandidateSummary()
+    {
+        return $this->candidateSummary;
+    }
+
+    /**
+     * @param string $candidateSummary
+     *
+     * @return self
+     */
+    public function setCandidateSummary($candidateSummary = null)
+    {
+        $this->candidateSummary = $candidateSummary;
+
+        return $this;
+    }
+
+    /**
+     * @return JobApplicationSummaryModel
+     */
+    public function getJobApplication()
+    {
+        return $this->jobApplication;
+    }
+
+    /**
+     * @param JobApplicationSummaryModel $jobApplication
+     *
+     * @return self
+     */
+    public function setJobApplication(JobApplicationSummaryModel $jobApplication = null)
+    {
+        $this->jobApplication = $jobApplication;
+
+        return $this;
+    }
+
+    /**
+     * @return ContactSummaryModel[]
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * @param ContactSummaryModel[] $contacts
+     *
+     * @return self
+     */
+    public function setContacts(array $contacts = null)
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+
+    /**
+     * @param UserSummaryModel $owner
+     *
+     * @return self
+     */
+    public function setOwner(UserSummaryModel $owner = null)
+    {
+        $this->owner = $owner;
 
         return $this;
     }

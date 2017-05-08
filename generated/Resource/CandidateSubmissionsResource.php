@@ -16,8 +16,9 @@ class CandidateSubmissionsResource extends Resource
      *     @var array $candidateId
      *     @var array $companyId
      *     @var array $jobId
+     *     @var array $createdAt Search for submissions created at a specific date and time
+     *     @var array $updatedAt Search for submissions updated at a specific date and time
      * }
-     *
      * @param string $fetch Fetch mode (object or response)
      *
      * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\SubmissionListRepresentation
@@ -31,9 +32,11 @@ class CandidateSubmissionsResource extends Resource
         $queryParam->setDefault('candidateId', null);
         $queryParam->setDefault('companyId', null);
         $queryParam->setDefault('jobId', null);
+        $queryParam->setDefault('createdAt', null);
+        $queryParam->setDefault('updatedAt', null);
         $url     = '/v2/submissions';
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
@@ -63,7 +66,7 @@ class CandidateSubmissionsResource extends Resource
         $url        = '/v2/submissions/{submissionId}';
         $url        = str_replace('{submissionId}', urlencode($submissionId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'localapi.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);

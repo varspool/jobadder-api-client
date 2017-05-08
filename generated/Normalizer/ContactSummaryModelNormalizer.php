@@ -45,6 +45,9 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         if (property_exists($data, 'lastName')) {
             $object->setLastName($data->{'lastName'});
         }
+        if (property_exists($data, 'position')) {
+            $object->setPosition($data->{'position'});
+        }
         if (property_exists($data, 'email')) {
             $object->setEmail($data->{'email'});
         }
@@ -53,6 +56,21 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         }
         if (property_exists($data, 'mobile')) {
             $object->setMobile($data->{'mobile'});
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\StatusModel', 'raw', $context));
+        }
+        if (property_exists($data, 'createdBy')) {
+            $object->setCreatedBy($this->serializer->deserialize($data->{'createdBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'createdAt')) {
+            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
+        }
+        if (property_exists($data, 'updatedBy')) {
+            $object->setUpdatedBy($this->serializer->deserialize($data->{'updatedBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'updatedAt')) {
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
         }
         if (property_exists($data, 'company')) {
             $object->setCompany($this->serializer->deserialize($data->{'company'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyNameModel', 'raw', $context));
@@ -73,6 +91,9 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         if (null !== $object->getLastName()) {
             $data->{'lastName'} = $object->getLastName();
         }
+        if (null !== $object->getPosition()) {
+            $data->{'position'} = $object->getPosition();
+        }
         if (null !== $object->getEmail()) {
             $data->{'email'} = $object->getEmail();
         }
@@ -81,6 +102,21 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         }
         if (null !== $object->getMobile()) {
             $data->{'mobile'} = $object->getMobile();
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedBy()) {
+            $data->{'createdBy'} = $this->serializer->serialize($object->getCreatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedAt()) {
+            $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+        }
+        if (null !== $object->getUpdatedBy()) {
+            $data->{'updatedBy'} = $this->serializer->serialize($object->getUpdatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getUpdatedAt()) {
+            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         }
         if (null !== $object->getCompany()) {
             $data->{'company'} = $this->serializer->serialize($object->getCompany(), 'raw', $context);

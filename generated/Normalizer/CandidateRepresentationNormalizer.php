@@ -54,6 +54,30 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
         if (property_exists($data, 'mobile')) {
             $object->setMobile($data->{'mobile'});
         }
+        if (property_exists($data, 'address')) {
+            $object->setAddress($this->serializer->deserialize($data->{'address'}, 'Varspool\\JobAdder\\V2\\Model\\AddressModel', 'raw', $context));
+        }
+        if (property_exists($data, 'status')) {
+            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\StatusModel', 'raw', $context));
+        }
+        if (property_exists($data, 'rating')) {
+            $object->setRating($data->{'rating'});
+        }
+        if (property_exists($data, 'source')) {
+            $object->setSource($data->{'source'});
+        }
+        if (property_exists($data, 'createdBy')) {
+            $object->setCreatedBy($this->serializer->deserialize($data->{'createdBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'createdAt')) {
+            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
+        }
+        if (property_exists($data, 'updatedBy')) {
+            $object->setUpdatedBy($this->serializer->deserialize($data->{'updatedBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
+        }
+        if (property_exists($data, 'updatedAt')) {
+            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
+        }
         if (property_exists($data, 'otherEmail')) {
             $values = [];
             foreach ($data->{'otherEmail'} as $value) {
@@ -67,18 +91,6 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
                 $values_1[$key] = $value_1;
             }
             $object->setSocial($values_1);
-        }
-        if (property_exists($data, 'address')) {
-            $object->setAddress($this->serializer->deserialize($data->{'address'}, 'Varspool\\JobAdder\\V2\\Model\\AddressModel', 'raw', $context));
-        }
-        if (property_exists($data, 'status')) {
-            $object->setStatus($this->serializer->deserialize($data->{'status'}, 'Varspool\\JobAdder\\V2\\Model\\StatusModel', 'raw', $context));
-        }
-        if (property_exists($data, 'rating')) {
-            $object->setRating($data->{'rating'});
-        }
-        if (property_exists($data, 'source')) {
-            $object->setSource($data->{'source'});
         }
         if (property_exists($data, 'employment')) {
             $object->setEmployment($this->serializer->deserialize($data->{'employment'}, 'Varspool\\JobAdder\\V2\\Model\\EmploymentModel', 'raw', $context));
@@ -114,18 +126,6 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
             }
             $object->setRecruiters($values_5);
         }
-        if (property_exists($data, 'createdBy')) {
-            $object->setCreatedBy($this->serializer->deserialize($data->{'createdBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
-        }
-        if (property_exists($data, 'createdAt')) {
-            $object->setCreatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'createdAt'}));
-        }
-        if (property_exists($data, 'updatedBy')) {
-            $object->setUpdatedBy($this->serializer->deserialize($data->{'updatedBy'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
-        }
-        if (property_exists($data, 'updatedAt')) {
-            $object->setUpdatedAt(\DateTime::createFromFormat("Y-m-d\TH:i:sP", $data->{'updatedAt'}));
-        }
         if (property_exists($data, 'links')) {
             $object->setLinks($this->serializer->deserialize($data->{'links'}, 'Varspool\\JobAdder\\V2\\Model\\CandidateLinks', 'raw', $context));
         }
@@ -154,6 +154,30 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
         if (null !== $object->getMobile()) {
             $data->{'mobile'} = $object->getMobile();
         }
+        if (null !== $object->getAddress()) {
+            $data->{'address'} = $this->serializer->serialize($object->getAddress(), 'raw', $context);
+        }
+        if (null !== $object->getStatus()) {
+            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
+        }
+        if (null !== $object->getRating()) {
+            $data->{'rating'} = $object->getRating();
+        }
+        if (null !== $object->getSource()) {
+            $data->{'source'} = $object->getSource();
+        }
+        if (null !== $object->getCreatedBy()) {
+            $data->{'createdBy'} = $this->serializer->serialize($object->getCreatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getCreatedAt()) {
+            $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
+        }
+        if (null !== $object->getUpdatedBy()) {
+            $data->{'updatedBy'} = $this->serializer->serialize($object->getUpdatedBy(), 'raw', $context);
+        }
+        if (null !== $object->getUpdatedAt()) {
+            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
+        }
         if (null !== $object->getOtherEmail()) {
             $values = [];
             foreach ($object->getOtherEmail() as $value) {
@@ -167,18 +191,6 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
                 $values_1->{$key} = $value_1;
             }
             $data->{'social'} = $values_1;
-        }
-        if (null !== $object->getAddress()) {
-            $data->{'address'} = $this->serializer->serialize($object->getAddress(), 'raw', $context);
-        }
-        if (null !== $object->getStatus()) {
-            $data->{'status'} = $this->serializer->serialize($object->getStatus(), 'raw', $context);
-        }
-        if (null !== $object->getRating()) {
-            $data->{'rating'} = $object->getRating();
-        }
-        if (null !== $object->getSource()) {
-            $data->{'source'} = $object->getSource();
         }
         if (null !== $object->getEmployment()) {
             $data->{'employment'} = $this->serializer->serialize($object->getEmployment(), 'raw', $context);
@@ -213,18 +225,6 @@ class CandidateRepresentationNormalizer extends SerializerAwareNormalizer implem
                 $values_5[] = $this->serializer->serialize($value_5, 'raw', $context);
             }
             $data->{'recruiters'} = $values_5;
-        }
-        if (null !== $object->getCreatedBy()) {
-            $data->{'createdBy'} = $this->serializer->serialize($object->getCreatedBy(), 'raw', $context);
-        }
-        if (null !== $object->getCreatedAt()) {
-            $data->{'createdAt'} = $object->getCreatedAt()->format("Y-m-d\TH:i:sP");
-        }
-        if (null !== $object->getUpdatedBy()) {
-            $data->{'updatedBy'} = $this->serializer->serialize($object->getUpdatedBy(), 'raw', $context);
-        }
-        if (null !== $object->getUpdatedAt()) {
-            $data->{'updatedAt'} = $object->getUpdatedAt()->format("Y-m-d\TH:i:sP");
         }
         if (null !== $object->getLinks()) {
             $data->{'links'} = $this->serializer->serialize($object->getLinks(), 'raw', $context);

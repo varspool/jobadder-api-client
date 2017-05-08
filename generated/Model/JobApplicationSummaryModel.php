@@ -17,13 +17,17 @@ class JobApplicationSummaryModel
      */
     protected $jobReference;
     /**
-     * @var JobApplicationStatusModel
-     */
-    protected $status;
-    /**
      * @var bool
      */
     protected $manual;
+    /**
+     * @var string
+     */
+    protected $source;
+    /**
+     * @var JobApplicationStatusModel
+     */
+    protected $status;
     /**
      * @var CandidateSummaryModel
      */
@@ -40,6 +44,10 @@ class JobApplicationSummaryModel
      * @var \DateTime
      */
     protected $createdAt;
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
 
     /**
      * @return int
@@ -102,26 +110,6 @@ class JobApplicationSummaryModel
     }
 
     /**
-     * @return JobApplicationStatusModel
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param JobApplicationStatusModel $status
-     *
-     * @return self
-     */
-    public function setStatus(JobApplicationStatusModel $status = null)
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
      * @return bool
      */
     public function getManual()
@@ -137,6 +125,46 @@ class JobApplicationSummaryModel
     public function setManual($manual = null)
     {
         $this->manual = $manual;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     *
+     * @return self
+     */
+    public function setSource($source = null)
+    {
+        $this->source = $source;
+
+        return $this;
+    }
+
+    /**
+     * @return JobApplicationStatusModel
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param JobApplicationStatusModel $status
+     *
+     * @return self
+     */
+    public function setStatus(JobApplicationStatusModel $status = null)
+    {
+        $this->status = $status;
 
         return $this;
     }
@@ -217,6 +245,26 @@ class JobApplicationSummaryModel
     public function setCreatedAt(\DateTime $createdAt = null)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     *
+     * @return self
+     */
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

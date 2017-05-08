@@ -12,6 +12,9 @@ class NormalizerFactory
         $normalizers[] = new CandidateListRepresentationNormalizer();
         $normalizers[] = new CandidateSummaryModelNormalizer();
         $normalizers[] = new PageLinksNormalizer();
+        $normalizers[] = new AddressModelNormalizer();
+        $normalizers[] = new StatusModelNormalizer();
+        $normalizers[] = new UserSummaryModelNormalizer();
         $normalizers[] = new AddCandidateCommandNormalizer();
         $normalizers[] = new SubmitAddressModelNormalizer();
         $normalizers[] = new SubmitEmploymentModelNormalizer();
@@ -24,12 +27,9 @@ class NormalizerFactory
         $normalizers[] = new SalaryRangeModelNormalizer();
         $normalizers[] = new SubmitIdealSalaryModelNormalizer();
         $normalizers[] = new CandidateRepresentationNormalizer();
-        $normalizers[] = new AddressModelNormalizer();
-        $normalizers[] = new StatusModelNormalizer();
         $normalizers[] = new EmploymentModelNormalizer();
         $normalizers[] = new EducationModelNormalizer();
         $normalizers[] = new CustomFieldValueModelNormalizer();
-        $normalizers[] = new UserSummaryModelNormalizer();
         $normalizers[] = new CandidateLinksNormalizer();
         $normalizers[] = new CurrentEmploymentModelNormalizer();
         $normalizers[] = new IdealEmploymentModelNormalizer();
