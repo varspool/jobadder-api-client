@@ -2,6 +2,8 @@
 
 namespace Varspool\JobAdder;
 
+use Http\Client\HttpAsyncClient;
+use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
 use Http\Message\MessageFactory\GuzzleMessageFactory;
 use Joli\Jane\OpenApi\Runtime\Client\Resource;
@@ -15,18 +17,28 @@ use Varspool\JobAdder\V2\Resources;
 
 class Client extends Resources
 {
-    private $httpClient;
+    /**
+     * @var \Http\Client\HttpClient
+     */
+    protected $httpClient;
 
     /**
      * @var MessageFactory
      */
-    private $messageFactory;
+    protected $messageFactory;
 
     /**
      * @var Serializer
      */
-    private $serializer;
+    protected $serializer;
 
+    /**
+     * Client constructor.
+     *
+     * @param HttpClient|HttpAsyncClient $httpClient
+     * @param MessageFactory|null        $messageFactory
+     * @param Serializer|null            $serializer
+     */
     public function __construct($httpClient, MessageFactory $messageFactory = null, Serializer $serializer = null)
     {
         $this->httpClient = $httpClient;
