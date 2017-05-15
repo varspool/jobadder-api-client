@@ -18,7 +18,7 @@ use Varspool\JobAdder\V2\Resource\RequisitionsResource;
 use Varspool\JobAdder\V2\Resource\UserGroupsResource;
 use Varspool\JobAdder\V2\Resource\UsersResource;
 
-abstract class Resources
+abstract class Resources extends Resource
 {
     /**
      * @var CandidatesResource
@@ -89,8 +89,6 @@ abstract class Resources
      * @var UsersResource
      */
     protected $users;
-
-    abstract protected function createResourceInstance(string $type): Resource;
 
     /**
      * @return CandidateFloatsResource
@@ -258,5 +256,16 @@ abstract class Resources
         }
 
         return $this->candidates;
+    }
+
+    /**
+     * Creates an instance of the specified resource type
+     *
+     * @param string $type
+     * @return Resource
+     */
+    protected function createResourceInstance(string $type): Resource
+    {
+        return new $type($this->httpClient, $this->messageFactory, $this->serializer);
     }
 }
