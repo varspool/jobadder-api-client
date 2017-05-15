@@ -98,7 +98,7 @@ class NotesResource extends Resource
      * @param array  $parameters   List of parameters
      * @param string $fetch        Fetch mode (object or response)
      *
-     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteAttachmentRepresentation
+     * @return \Psr\Http\Message\ResponseInterface
      */
     public function getNoteAttachment($noteId, $attachmentId, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
@@ -107,7 +107,7 @@ class NotesResource extends Resource
         $url        = str_replace('{noteId}', urlencode($noteId), $url);
         $url        = str_replace('{attachmentId}', urlencode($attachmentId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
@@ -115,11 +115,6 @@ class NotesResource extends Resource
             return $promise;
         }
         $response = $promise->wait();
-        if (self::FETCH_OBJECT == $fetch) {
-            if ('200' == $response->getStatusCode()) {
-                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteAttachmentRepresentation', 'json');
-            }
-        }
 
         return $response;
     }

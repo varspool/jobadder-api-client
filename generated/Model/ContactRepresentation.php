@@ -65,6 +65,10 @@ class ContactRepresentation
      */
     protected $hiringManager;
     /**
+     * @var CustomFieldValueModel[]
+     */
+    protected $custom;
+    /**
      * @var UserSummaryModel
      */
     protected $owner;
@@ -373,6 +377,26 @@ class ContactRepresentation
     public function setHiringManager($hiringManager = null)
     {
         $this->hiringManager = $hiringManager;
+
+        return $this;
+    }
+
+    /**
+     * @return CustomFieldValueModel[]
+     */
+    public function getCustom()
+    {
+        return $this->custom;
+    }
+
+    /**
+     * @param CustomFieldValueModel[] $custom
+     *
+     * @return self
+     */
+    public function setCustom(array $custom = null)
+    {
+        $this->custom = $custom;
 
         return $this;
     }

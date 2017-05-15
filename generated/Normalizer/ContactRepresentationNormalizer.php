@@ -81,15 +81,22 @@ class ContactRepresentationNormalizer extends SerializerAwareNormalizer implemen
         if (property_exists($data, 'hiringManager')) {
             $object->setHiringManager($data->{'hiringManager'});
         }
+        if (property_exists($data, 'custom')) {
+            $values = [];
+            foreach ($data->{'custom'} as $value) {
+                $values[] = $this->serializer->deserialize($value, 'Varspool\\JobAdder\\V2\\Model\\CustomFieldValueModel', 'raw', $context);
+            }
+            $object->setCustom($values);
+        }
         if (property_exists($data, 'owner')) {
             $object->setOwner($this->serializer->deserialize($data->{'owner'}, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context));
         }
         if (property_exists($data, 'recruiters')) {
-            $values = [];
-            foreach ($data->{'recruiters'} as $value) {
-                $values[] = $this->serializer->deserialize($value, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context);
+            $values_1 = [];
+            foreach ($data->{'recruiters'} as $value_1) {
+                $values_1[] = $this->serializer->deserialize($value_1, 'Varspool\\JobAdder\\V2\\Model\\UserSummaryModel', 'raw', $context);
             }
-            $object->setRecruiters($values);
+            $object->setRecruiters($values_1);
         }
         if (property_exists($data, 'links')) {
             $object->setLinks($this->serializer->deserialize($data->{'links'}, 'Varspool\\JobAdder\\V2\\Model\\ContactLinks', 'raw', $context));
@@ -146,15 +153,22 @@ class ContactRepresentationNormalizer extends SerializerAwareNormalizer implemen
         if (null !== $object->getHiringManager()) {
             $data->{'hiringManager'} = $object->getHiringManager();
         }
+        if (null !== $object->getCustom()) {
+            $values = [];
+            foreach ($object->getCustom() as $value) {
+                $values[] = $this->serializer->serialize($value, 'raw', $context);
+            }
+            $data->{'custom'} = $values;
+        }
         if (null !== $object->getOwner()) {
             $data->{'owner'} = $this->serializer->serialize($object->getOwner(), 'raw', $context);
         }
         if (null !== $object->getRecruiters()) {
-            $values = [];
-            foreach ($object->getRecruiters() as $value) {
-                $values[] = $this->serializer->serialize($value, 'raw', $context);
+            $values_1 = [];
+            foreach ($object->getRecruiters() as $value_1) {
+                $values_1[] = $this->serializer->serialize($value_1, 'raw', $context);
             }
-            $data->{'recruiters'} = $values;
+            $data->{'recruiters'} = $values_1;
         }
         if (null !== $object->getLinks()) {
             $data->{'links'} = $this->serializer->serialize($object->getLinks(), 'raw', $context);

@@ -48,8 +48,8 @@ class CandidateLinksNormalizer extends SerializerAwareNormalizer implements Deno
         if (property_exists($data, 'notes')) {
             $object->setNotes($data->{'notes'});
         }
-        if (property_exists($data, 'documents')) {
-            $object->setDocuments($data->{'documents'});
+        if (property_exists($data, 'attachments')) {
+            $object->setAttachments($data->{'attachments'});
         }
         if (property_exists($data, 'floats')) {
             $object->setFloats($data->{'floats'});
@@ -82,8 +82,8 @@ class CandidateLinksNormalizer extends SerializerAwareNormalizer implements Deno
         if (null !== $object->getNotes()) {
             $data->{'notes'} = $object->getNotes();
         }
-        if (null !== $object->getDocuments()) {
-            $data->{'documents'} = $object->getDocuments();
+        if (null !== $object->getAttachments()) {
+            $data->{'attachments'} = $object->getAttachments();
         }
         if (null !== $object->getFloats()) {
             $data->{'floats'} = $object->getFloats();

@@ -23,7 +23,7 @@ class CandidateLinks
     /**
      * @var string
      */
-    protected $documents;
+    protected $attachments;
     /**
      * @var string
      */
@@ -124,19 +124,19 @@ class CandidateLinks
     /**
      * @return string
      */
-    public function getDocuments()
+    public function getAttachments()
     {
-        return $this->documents;
+        return $this->attachments;
     }
 
     /**
-     * @param string $documents
+     * @param string $attachments
      *
      * @return self
      */
-    public function setDocuments($documents = null)
+    public function setAttachments($attachments = null)
     {
-        $this->documents = $documents;
+        $this->attachments = $attachments;
 
         return $this;
     }

@@ -109,6 +109,10 @@ class PlacementRepresentation
      */
     protected $export;
     /**
+     * @var CustomFieldValueModel[]
+     */
+    protected $custom;
+    /**
      * @var UserSummaryModel
      */
     protected $owner;
@@ -637,6 +641,26 @@ class PlacementRepresentation
     public function setExport(PlacementExportModel $export = null)
     {
         $this->export = $export;
+
+        return $this;
+    }
+
+    /**
+     * @return CustomFieldValueModel[]
+     */
+    public function getCustom()
+    {
+        return $this->custom;
+    }
+
+    /**
+     * @param CustomFieldValueModel[] $custom
+     *
+     * @return self
+     */
+    public function setCustom(array $custom = null)
+    {
+        $this->custom = $custom;
 
         return $this;
     }

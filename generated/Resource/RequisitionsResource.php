@@ -210,8 +210,8 @@ class RequisitionsResource extends Resource
 
     /**
      * @param int    $requisitionId
-     * @param string $documentType
-     * @param array  $parameters    {
+     * @param string $attachmentType
+     * @param array  $parameters     {
      *
      *     @var  $fileData
      * }
@@ -220,14 +220,14 @@ class RequisitionsResource extends Resource
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function postRequisitionDocument($requisitionId, $documentType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function postRequisitionAttachment($requisitionId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
         $queryParam->setRequired('fileData');
         $queryParam->setFormParameters(['fileData']);
-        $url     = '/v2/requisitions/{requisitionId}/documents/{documentType}';
+        $url     = '/v2/requisitions/{requisitionId}/attachments/{attachmentType}';
         $url     = str_replace('{requisitionId}', urlencode($requisitionId), $url);
-        $url     = str_replace('{documentType}', urlencode($documentType), $url);
+        $url     = str_replace('{attachmentType}', urlencode($attachmentType), $url);
         $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
         $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
         $body    = $queryParam->buildFormDataString($parameters);
@@ -243,20 +243,20 @@ class RequisitionsResource extends Resource
 
     /**
      * @param int    $requisitionId
-     * @param string $documentType
-     * @param int    $documentId
-     * @param array  $parameters    List of parameters
-     * @param string $fetch         Fetch mode (object or response)
+     * @param string $attachmentType
+     * @param int    $attachmentId
+     * @param array  $parameters     List of parameters
+     * @param string $fetch          Fetch mode (object or response)
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getRequisitionDocument($requisitionId, $documentType, $documentId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function getRequisitionAttachment($requisitionId, $attachmentType, $attachmentId, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
-        $url        = '/v2/requisitions/{requisitionId}/documents/{documentType}/{documentId}';
+        $url        = '/v2/requisitions/{requisitionId}/attachments/{attachmentType}/{attachmentId}';
         $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
-        $url        = str_replace('{documentType}', urlencode($documentType), $url);
-        $url        = str_replace('{documentId}', urlencode($documentId), $url);
+        $url        = str_replace('{attachmentType}', urlencode($attachmentType), $url);
+        $url        = str_replace('{attachmentId}', urlencode($attachmentId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
         $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
@@ -272,18 +272,18 @@ class RequisitionsResource extends Resource
 
     /**
      * @param int    $requisitionId
-     * @param string $documentType
+     * @param string $type
      * @param array  $parameters    List of parameters
      * @param string $fetch         Fetch mode (object or response)
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getLatestRequisitionDocument($requisitionId, $documentType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function getLatestRequisitionAttachment($requisitionId, $type, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
-        $url        = '/v2/requisitions/{requisitionId}/documents/{documentType}/latest';
+        $url        = '/v2/requisitions/{requisitionId}/attachments/{type}/latest';
         $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
-        $url        = str_replace('{documentType}', urlencode($documentType), $url);
+        $url        = str_replace('{type}', urlencode($type), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
         $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);

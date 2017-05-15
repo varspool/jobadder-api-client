@@ -38,6 +38,8 @@ class NormalizerFactory
         $normalizers[] = new ErrorModelNormalizer();
         $normalizers[] = new ErrorItemModelNormalizer();
         $normalizers[] = new UpdateCandidateCommandNormalizer();
+        $normalizers[] = new CandidateAttachmentListRepresentationNormalizer();
+        $normalizers[] = new CandidateAttachmentModelNormalizer();
         $normalizers[] = new CustomFieldListRepresentationNormalizer();
         $normalizers[] = new CustomFieldModelNormalizer();
         $normalizers[] = new ModelLinksNormalizer();
@@ -119,8 +121,6 @@ class NormalizerFactory
         $normalizers[] = new NoteRepresentationNormalizer();
         $normalizers[] = new NoteAttachmentModelNormalizer();
         $normalizers[] = new NoteLinksNormalizer();
-        $normalizers[] = new NoteAttachmentRepresentationNormalizer();
-        $normalizers[] = new NoteAttachentLinksNormalizer();
         $normalizers[] = new PlacementRepresentationNormalizer();
         $normalizers[] = new PlacementSourceModelNormalizer();
         $normalizers[] = new PlacementSalaryModelNormalizer();
