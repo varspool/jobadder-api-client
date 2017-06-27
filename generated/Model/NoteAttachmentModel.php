@@ -7,6 +7,10 @@ class NoteAttachmentModel
     /**
      * @var string
      */
+    protected $attachmentId;
+    /**
+     * @var string
+     */
     protected $fileName;
     /**
      * @var string
@@ -20,6 +24,26 @@ class NoteAttachmentModel
      * @var \DateTime
      */
     protected $createdAt;
+
+    /**
+     * @return string
+     */
+    public function getAttachmentId()
+    {
+        return $this->attachmentId;
+    }
+
+    /**
+     * @param string $attachmentId
+     *
+     * @return self
+     */
+    public function setAttachmentId($attachmentId = null)
+    {
+        $this->attachmentId = $attachmentId;
+
+        return $this;
+    }
 
     /**
      * @return string

@@ -36,6 +36,9 @@ class NoteAttachmentModelNormalizer extends SerializerAwareNormalizer implements
         if (!isset($context['rootSchema'])) {
             $context['rootSchema'] = $object;
         }
+        if (property_exists($data, 'attachmentId')) {
+            $object->setAttachmentId($data->{'attachmentId'});
+        }
         if (property_exists($data, 'fileName')) {
             $object->setFileName($data->{'fileName'});
         }
@@ -55,6 +58,9 @@ class NoteAttachmentModelNormalizer extends SerializerAwareNormalizer implements
     public function normalize($object, $format = null, array $context = [])
     {
         $data = new \stdClass();
+        if (null !== $object->getAttachmentId()) {
+            $data->{'attachmentId'} = $object->getAttachmentId();
+        }
         if (null !== $object->getFileName()) {
             $data->{'fileName'} = $object->getFileName();
         }

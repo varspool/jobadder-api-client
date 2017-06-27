@@ -45,22 +45,6 @@ class CandidateRepresentation
      */
     protected $source;
     /**
-     * @var UserSummaryModel
-     */
-    protected $createdBy;
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-    /**
-     * @var UserSummaryModel
-     */
-    protected $updatedBy;
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
-    /**
      * @var string[]
      */
     protected $otherEmail;
@@ -77,13 +61,13 @@ class CandidateRepresentation
      */
     protected $availability;
     /**
-     * @var string[]
-     */
-    protected $skillTags;
-    /**
      * @var EducationModel[]
      */
     protected $education;
+    /**
+     * @var string[]
+     */
+    protected $skillTags;
     /**
      * @var CustomFieldValueModel[]
      */
@@ -92,6 +76,22 @@ class CandidateRepresentation
      * @var UserSummaryModel[]
      */
     protected $recruiters;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $createdBy;
+    /**
+     * @var \DateTime
+     */
+    protected $createdAt;
+    /**
+     * @var UserSummaryModel
+     */
+    protected $updatedBy;
+    /**
+     * @var \DateTime
+     */
+    protected $updatedAt;
     /**
      * @var CandidateLinks
      */
@@ -298,86 +298,6 @@ class CandidateRepresentation
     }
 
     /**
-     * @return UserSummaryModel
-     */
-    public function getCreatedBy()
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * @param UserSummaryModel $createdBy
-     *
-     * @return self
-     */
-    public function setCreatedBy(UserSummaryModel $createdBy = null)
-    {
-        $this->createdBy = $createdBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * @param \DateTime $createdAt
-     *
-     * @return self
-     */
-    public function setCreatedAt(\DateTime $createdAt = null)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * @return UserSummaryModel
-     */
-    public function getUpdatedBy()
-    {
-        return $this->updatedBy;
-    }
-
-    /**
-     * @param UserSummaryModel $updatedBy
-     *
-     * @return self
-     */
-    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
-    {
-        $this->updatedBy = $updatedBy;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
-    }
-
-    /**
-     * @param \DateTime $updatedAt
-     *
-     * @return self
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
      * @return string[]
      */
     public function getOtherEmail()
@@ -458,26 +378,6 @@ class CandidateRepresentation
     }
 
     /**
-     * @return string[]
-     */
-    public function getSkillTags()
-    {
-        return $this->skillTags;
-    }
-
-    /**
-     * @param string[] $skillTags
-     *
-     * @return self
-     */
-    public function setSkillTags(array $skillTags = null)
-    {
-        $this->skillTags = $skillTags;
-
-        return $this;
-    }
-
-    /**
      * @return EducationModel[]
      */
     public function getEducation()
@@ -493,6 +393,26 @@ class CandidateRepresentation
     public function setEducation(array $education = null)
     {
         $this->education = $education;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSkillTags()
+    {
+        return $this->skillTags;
+    }
+
+    /**
+     * @param string[] $skillTags
+     *
+     * @return self
+     */
+    public function setSkillTags(array $skillTags = null)
+    {
+        $this->skillTags = $skillTags;
 
         return $this;
     }
@@ -533,6 +453,86 @@ class CandidateRepresentation
     public function setRecruiters(array $recruiters = null)
     {
         $this->recruiters = $recruiters;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * @param UserSummaryModel $createdBy
+     *
+     * @return self
+     */
+    public function setCreatedBy(UserSummaryModel $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     *
+     * @return self
+     */
+    public function setCreatedAt(\DateTime $createdAt = null)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return UserSummaryModel
+     */
+    public function getUpdatedBy()
+    {
+        return $this->updatedBy;
+    }
+
+    /**
+     * @param UserSummaryModel $updatedBy
+     *
+     * @return self
+     */
+    public function setUpdatedBy(UserSummaryModel $updatedBy = null)
+    {
+        $this->updatedBy = $updatedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     *
+     * @return self
+     */
+    public function setUpdatedAt(\DateTime $updatedAt = null)
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

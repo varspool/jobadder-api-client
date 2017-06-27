@@ -69,6 +69,9 @@ class UpdateRequisitionCommandNormalizer extends SerializerAwareNormalizer imple
         if (property_exists($data, 'numberOfJobs')) {
             $object->setNumberOfJobs($data->{'numberOfJobs'});
         }
+        if (property_exists($data, 'source')) {
+            $object->setSource($data->{'source'});
+        }
         if (property_exists($data, 'customFields')) {
             $values = [];
             foreach ($data->{'customFields'} as $value) {
@@ -125,6 +128,9 @@ class UpdateRequisitionCommandNormalizer extends SerializerAwareNormalizer imple
         }
         if (null !== $object->getNumberOfJobs()) {
             $data->{'numberOfJobs'} = $object->getNumberOfJobs();
+        }
+        if (null !== $object->getSource()) {
+            $data->{'source'} = $object->getSource();
         }
         if (null !== $object->getCustomFields()) {
             $values = [];

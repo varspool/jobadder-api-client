@@ -19,11 +19,19 @@ class CandidateLinks
     /**
      * @var string
      */
+    protected $skills;
+    /**
+     * @var string
+     */
     protected $notes;
     /**
      * @var string
      */
     protected $attachments;
+    /**
+     * @var string
+     */
+    protected $videos;
     /**
      * @var string
      */
@@ -104,6 +112,26 @@ class CandidateLinks
     /**
      * @return string
      */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param string $skills
+     *
+     * @return self
+     */
+    public function setSkills($skills = null)
+    {
+        $this->skills = $skills;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getNotes()
     {
         return $this->notes;
@@ -137,6 +165,26 @@ class CandidateLinks
     public function setAttachments($attachments = null)
     {
         $this->attachments = $attachments;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVideos()
+    {
+        return $this->videos;
+    }
+
+    /**
+     * @param string $videos
+     *
+     * @return self
+     */
+    public function setVideos($videos = null)
+    {
+        $this->videos = $videos;
 
         return $this;
     }

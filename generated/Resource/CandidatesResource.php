@@ -266,25 +266,141 @@ class CandidatesResource extends Resource
 
     /**
      * @param int    $candidateId
-     * @param string $type
-     * @param int    $attachmentId
-     * @param array  $parameters   List of parameters
-     * @param string $fetch        Fetch mode (object or response)
+     * @param string $attachmentType
+     * @param array  $parameters     List of parameters
+     * @param string $fetch          Fetch mode (object or response)
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getCandidateAttachment($candidateId, $type, $attachmentId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function getLatestCandidateAttachment($candidateId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
-        $url        = '/v2/candidates/{candidateId}/attachments/{type}/{attachmentId}';
+        $url        = '/v2/candidates/{candidateId}/attachments/{attachmentType}';
         $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
-        $url        = str_replace('{type}', urlencode($type), $url);
+        $url        = str_replace('{attachmentType}', urlencode($attachmentType), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId    Candidate Id
+     * @param string $attachmentType
+     * @param array  $parameters     {
+     *
+     *     @var  $fileData
+     * }
+     *
+     * @param string $fetch Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function postCandidateAttachment($candidateId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $queryParam->setRequired('fileData');
+        $queryParam->setFormParameters(['fileData']);
+        $url     = '/v2/candidates/{candidateId}/attachments/{attachmentType}';
+        $url     = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url     = str_replace('{attachmentType}', urlencode($attachmentType), $url);
+        $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body    = $queryParam->buildFormDataString($parameters);
+        $request = $this->messageFactory->createRequest('POST', $url, $headers, $body);
+        $promise = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId
+     * @param string $attachmentType
+     * @param int    $attachmentId
+     * @param array  $parameters     List of parameters
+     * @param string $fetch          Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getCandidateAttachment($candidateId, $attachmentType, $attachmentId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/attachments/{attachmentType}/{attachmentId}';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = str_replace('{attachmentType}', urlencode($attachmentType), $url);
         $url        = str_replace('{attachmentId}', urlencode($attachmentId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
         $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId Candidate Id
+     * @param array  $parameters  List of parameters
+     * @param string $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function deleteCandidateFormattedResume($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/attachments/formattedresume';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('DELETE', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int   $candidateId Candidate Id
+     * @param array $parameters  {
+     *
+     *     @var  $fileData
+     * }
+     *
+     * @param string $fetch Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function putCandidateFormattedResume($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $queryParam->setRequired('fileData');
+        $queryParam->setFormParameters(['fileData']);
+        $url     = '/v2/candidates/{candidateId}/attachments/formattedresume';
+        $url     = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body    = $queryParam->buildFormDataString($parameters);
+        $request = $this->messageFactory->createRequest('PUT', $url, $headers, $body);
+        $promise = $this->httpClient->sendAsyncRequest($request);
         if (self::FETCH_PROMISE === $fetch) {
             return $promise;
         }
@@ -359,6 +475,62 @@ class CandidatesResource extends Resource
     }
 
     /**
+     * @param int                                                 $candidateId
+     * @param \Varspool\JobAdder\V2\Model\AddCandidateNoteCommand $body
+     * @param array                                               $parameters  List of parameters
+     * @param string                                              $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteModel
+     */
+    public function addCandidateNote($candidateId, \Varspool\JobAdder\V2\Model\AddCandidateNoteCommand $body, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/notes';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $body       = $this->serializer->serialize($body, 'json');
+        $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('201' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteModel', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId Candidate Id
+     * @param array  $parameters  List of parameters
+     * @param string $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function deleteCandidatePhoto($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/photo';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('DELETE', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
      * @param int    $candidateId Candidate Id
      * @param array  $parameters  List of parameters
      * @param string $fetch       Fetch mode (object or response)
@@ -375,6 +547,37 @@ class CandidatesResource extends Resource
         $body       = $queryParam->buildFormDataString($parameters);
         $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int   $candidateId Candidate Id
+     * @param array $parameters  {
+     *
+     *     @var  $fileData
+     * }
+     *
+     * @param string $fetch Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function updateCandidatePhoto($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $queryParam->setRequired('fileData');
+        $queryParam->setFormParameters(['fileData']);
+        $url     = '/v2/candidates/{candidateId}/photo';
+        $url     = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body    = $queryParam->buildFormDataString($parameters);
+        $request = $this->messageFactory->createRequest('PUT', $url, $headers, $body);
+        $promise = $this->httpClient->sendAsyncRequest($request);
         if (self::FETCH_PROMISE === $fetch) {
             return $promise;
         }
@@ -444,6 +647,36 @@ class CandidatesResource extends Resource
     }
 
     /**
+     * @param int    $candidateId
+     * @param array  $parameters  List of parameters
+     * @param string $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\CategoryListRepresentation
+     */
+    public function getCandidateSkills($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/skills';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\CategoryListRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
      * @param int    $candidateId Candidate Id
      * @param array  $parameters  List of parameters
      * @param string $fetch       Fetch mode (object or response)
@@ -467,6 +700,101 @@ class CandidatesResource extends Resource
         if (self::FETCH_OBJECT == $fetch) {
             if ('200' == $response->getStatusCode()) {
                 return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\SubmissionListRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId
+     * @param array  $parameters  List of parameters
+     * @param string $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\CandidateVideoListRepresentation
+     */
+    public function getCandidateVideos($candidateId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/videos';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\CandidateVideoListRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int    $candidateId
+     * @param string $videoType
+     * @param array  $parameters  List of parameters
+     * @param string $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\CandidateVideoRepresentation
+     */
+    public function getLatestCandidateVideo($candidateId, $videoType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/videos/{videoType}';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = str_replace('{videoType}', urlencode($videoType), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\CandidateVideoRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int                                                  $candidateId Candidate Id
+     * @param string                                               $videoType
+     * @param \Varspool\JobAdder\V2\Model\AddCandidateVideoCommand $body
+     * @param array                                                $parameters  List of parameters
+     * @param string                                               $fetch       Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\CandidateVideoModel
+     */
+    public function addCandidateVideo($candidateId, $videoType, \Varspool\JobAdder\V2\Model\AddCandidateVideoCommand $body, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/candidates/{candidateId}/videos/{videoType}';
+        $url        = str_replace('{candidateId}', urlencode($candidateId), $url);
+        $url        = str_replace('{videoType}', urlencode($videoType), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $body       = $this->serializer->serialize($body, 'json');
+        $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\CandidateVideoModel', 'json');
             }
         }
 

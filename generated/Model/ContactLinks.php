@@ -19,6 +19,14 @@ class ContactLinks
     /**
      * @var string
      */
+    protected $officeAddress;
+    /**
+     * @var string
+     */
+    protected $skills;
+    /**
+     * @var string
+     */
     protected $notes;
     /**
      * @var string
@@ -89,6 +97,46 @@ class ContactLinks
     public function setCompany($company = null)
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOfficeAddress()
+    {
+        return $this->officeAddress;
+    }
+
+    /**
+     * @param string $officeAddress
+     *
+     * @return self
+     */
+    public function setOfficeAddress($officeAddress = null)
+    {
+        $this->officeAddress = $officeAddress;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param string $skills
+     *
+     * @return self
+     */
+    public function setSkills($skills = null)
+    {
+        $this->skills = $skills;
 
         return $this;
     }

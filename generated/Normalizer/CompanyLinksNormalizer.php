@@ -39,6 +39,9 @@ class CompanyLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         if (property_exists($data, 'self')) {
             $object->setSelf($data->{'self'});
         }
+        if (property_exists($data, 'logo')) {
+            $object->setLogo($data->{'logo'});
+        }
         if (property_exists($data, 'contacts')) {
             $object->setContacts($data->{'contacts'});
         }
@@ -47,6 +50,9 @@ class CompanyLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         }
         if (property_exists($data, 'addresses')) {
             $object->setAddresses($data->{'addresses'});
+        }
+        if (property_exists($data, 'skills')) {
+            $object->setSkills($data->{'skills'});
         }
         if (property_exists($data, 'notes')) {
             $object->setNotes($data->{'notes'});
@@ -79,6 +85,9 @@ class CompanyLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         if (null !== $object->getSelf()) {
             $data->{'self'} = $object->getSelf();
         }
+        if (null !== $object->getLogo()) {
+            $data->{'logo'} = $object->getLogo();
+        }
         if (null !== $object->getContacts()) {
             $data->{'contacts'} = $object->getContacts();
         }
@@ -87,6 +96,9 @@ class CompanyLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         }
         if (null !== $object->getAddresses()) {
             $data->{'addresses'} = $object->getAddresses();
+        }
+        if (null !== $object->getSkills()) {
+            $data->{'skills'} = $object->getSkills();
         }
         if (null !== $object->getNotes()) {
             $data->{'notes'} = $object->getNotes();

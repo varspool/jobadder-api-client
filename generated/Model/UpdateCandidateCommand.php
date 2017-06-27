@@ -25,6 +25,10 @@ class UpdateCandidateCommand
      */
     protected $mobile;
     /**
+     * @var string[]
+     */
+    protected $social;
+    /**
      * @var SubmitAddressModel
      */
     protected $address;
@@ -145,6 +149,26 @@ class UpdateCandidateCommand
     public function setMobile($mobile = null)
     {
         $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSocial()
+    {
+        return $this->social;
+    }
+
+    /**
+     * @param string[] $social
+     *
+     * @return self
+     */
+    public function setSocial(\ArrayObject $social = null)
+    {
+        $this->social = $social;
 
         return $this;
     }

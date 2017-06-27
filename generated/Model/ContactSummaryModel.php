@@ -56,6 +56,10 @@ class ContactSummaryModel
      * @var CompanyNameModel
      */
     protected $company;
+    /**
+     * @var CompanyAddressModel
+     */
+    protected $officeAddress;
 
     /**
      * @return int
@@ -313,6 +317,26 @@ class ContactSummaryModel
     public function setCompany(CompanyNameModel $company = null)
     {
         $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * @return CompanyAddressModel
+     */
+    public function getOfficeAddress()
+    {
+        return $this->officeAddress;
+    }
+
+    /**
+     * @param CompanyAddressModel $officeAddress
+     *
+     * @return self
+     */
+    public function setOfficeAddress(CompanyAddressModel $officeAddress = null)
+    {
+        $this->officeAddress = $officeAddress;
 
         return $this;
     }

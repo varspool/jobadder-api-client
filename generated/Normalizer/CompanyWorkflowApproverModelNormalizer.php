@@ -75,6 +75,9 @@ class CompanyWorkflowApproverModelNormalizer extends SerializerAwareNormalizer i
         if (property_exists($data, 'company')) {
             $object->setCompany($this->serializer->deserialize($data->{'company'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyNameModel', 'raw', $context));
         }
+        if (property_exists($data, 'officeAddress')) {
+            $object->setOfficeAddress($this->serializer->deserialize($data->{'officeAddress'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyAddressModel', 'raw', $context));
+        }
         if (property_exists($data, 'stageIndex')) {
             $object->setStageIndex($data->{'stageIndex'});
         }
@@ -123,6 +126,9 @@ class CompanyWorkflowApproverModelNormalizer extends SerializerAwareNormalizer i
         }
         if (null !== $object->getCompany()) {
             $data->{'company'} = $this->serializer->serialize($object->getCompany(), 'raw', $context);
+        }
+        if (null !== $object->getOfficeAddress()) {
+            $data->{'officeAddress'} = $this->serializer->serialize($object->getOfficeAddress(), 'raw', $context);
         }
         if (null !== $object->getStageIndex()) {
             $data->{'stageIndex'} = $object->getStageIndex();

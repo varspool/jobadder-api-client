@@ -49,6 +49,10 @@ class AddRequisitionCommand
      */
     protected $numberOfJobs;
     /**
+     * @var string
+     */
+    protected $source;
+    /**
      * @var SubmitCustomFieldValueModel[]
      */
     protected $customFields;
@@ -277,6 +281,26 @@ class AddRequisitionCommand
     public function setNumberOfJobs($numberOfJobs = null)
     {
         $this->numberOfJobs = $numberOfJobs;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    /**
+     * @param string $source
+     *
+     * @return self
+     */
+    public function setSource($source = null)
+    {
+        $this->source = $source;
 
         return $this;
     }

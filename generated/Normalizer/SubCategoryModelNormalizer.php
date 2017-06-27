@@ -42,6 +42,13 @@ class SubCategoryModelNormalizer extends SerializerAwareNormalizer implements De
         if (property_exists($data, 'name')) {
             $object->setName($data->{'name'});
         }
+        if (property_exists($data, 'skills')) {
+            $values = [];
+            foreach ($data->{'skills'} as $value) {
+                $values[] = $this->serializer->deserialize($value, 'Varspool\\JobAdder\\V2\\Model\\SkillCategoryModel', 'raw', $context);
+            }
+            $object->setSkills($values);
+        }
 
         return $object;
     }
@@ -54,6 +61,13 @@ class SubCategoryModelNormalizer extends SerializerAwareNormalizer implements De
         }
         if (null !== $object->getName()) {
             $data->{'name'} = $object->getName();
+        }
+        if (null !== $object->getSkills()) {
+            $values = [];
+            foreach ($object->getSkills() as $value) {
+                $values[] = $this->serializer->serialize($value, 'raw', $context);
+            }
+            $data->{'skills'} = $values;
         }
 
         return $data;

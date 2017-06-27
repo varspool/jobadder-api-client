@@ -51,15 +51,22 @@ class AddCandidateCommandNormalizer extends SerializerAwareNormalizer implements
         if (property_exists($data, 'mobile')) {
             $object->setMobile($data->{'mobile'});
         }
+        if (property_exists($data, 'social')) {
+            $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+            foreach ($data->{'social'} as $key => $value) {
+                $values[$key] = $value;
+            }
+            $object->setSocial($values);
+        }
         if (property_exists($data, 'address')) {
             $object->setAddress($this->serializer->deserialize($data->{'address'}, 'Varspool\\JobAdder\\V2\\Model\\SubmitAddressModel', 'raw', $context));
         }
         if (property_exists($data, 'skillTags')) {
-            $values = [];
-            foreach ($data->{'skillTags'} as $value) {
-                $values[] = $value;
+            $values_1 = [];
+            foreach ($data->{'skillTags'} as $value_1) {
+                $values_1[] = $value_1;
             }
-            $object->setSkillTags($values);
+            $object->setSkillTags($values_1);
         }
         if (property_exists($data, 'employment')) {
             $object->setEmployment($this->serializer->deserialize($data->{'employment'}, 'Varspool\\JobAdder\\V2\\Model\\SubmitEmploymentModel', 'raw', $context));
@@ -68,18 +75,18 @@ class AddCandidateCommandNormalizer extends SerializerAwareNormalizer implements
             $object->setAvailability($this->serializer->deserialize($data->{'availability'}, 'Varspool\\JobAdder\\V2\\Model\\StartModel', 'raw', $context));
         }
         if (property_exists($data, 'customFields')) {
-            $values_1 = [];
-            foreach ($data->{'customFields'} as $value_1) {
-                $values_1[] = $this->serializer->deserialize($value_1, 'Varspool\\JobAdder\\V2\\Model\\SubmitCustomFieldValueModel', 'raw', $context);
+            $values_2 = [];
+            foreach ($data->{'customFields'} as $value_2) {
+                $values_2[] = $this->serializer->deserialize($value_2, 'Varspool\\JobAdder\\V2\\Model\\SubmitCustomFieldValueModel', 'raw', $context);
             }
-            $object->setCustomFields($values_1);
+            $object->setCustomFields($values_2);
         }
         if (property_exists($data, 'recruiterUserId')) {
-            $values_2 = [];
-            foreach ($data->{'recruiterUserId'} as $value_2) {
-                $values_2[] = $value_2;
+            $values_3 = [];
+            foreach ($data->{'recruiterUserId'} as $value_3) {
+                $values_3[] = $value_3;
             }
-            $object->setRecruiterUserId($values_2);
+            $object->setRecruiterUserId($values_3);
         }
 
         return $object;
@@ -103,15 +110,22 @@ class AddCandidateCommandNormalizer extends SerializerAwareNormalizer implements
         if (null !== $object->getMobile()) {
             $data->{'mobile'} = $object->getMobile();
         }
+        if (null !== $object->getSocial()) {
+            $values = new \stdClass();
+            foreach ($object->getSocial() as $key => $value) {
+                $values->{$key} = $value;
+            }
+            $data->{'social'} = $values;
+        }
         if (null !== $object->getAddress()) {
             $data->{'address'} = $this->serializer->serialize($object->getAddress(), 'raw', $context);
         }
         if (null !== $object->getSkillTags()) {
-            $values = [];
-            foreach ($object->getSkillTags() as $value) {
-                $values[] = $value;
+            $values_1 = [];
+            foreach ($object->getSkillTags() as $value_1) {
+                $values_1[] = $value_1;
             }
-            $data->{'skillTags'} = $values;
+            $data->{'skillTags'} = $values_1;
         }
         if (null !== $object->getEmployment()) {
             $data->{'employment'} = $this->serializer->serialize($object->getEmployment(), 'raw', $context);
@@ -120,18 +134,18 @@ class AddCandidateCommandNormalizer extends SerializerAwareNormalizer implements
             $data->{'availability'} = $this->serializer->serialize($object->getAvailability(), 'raw', $context);
         }
         if (null !== $object->getCustomFields()) {
-            $values_1 = [];
-            foreach ($object->getCustomFields() as $value_1) {
-                $values_1[] = $this->serializer->serialize($value_1, 'raw', $context);
+            $values_2 = [];
+            foreach ($object->getCustomFields() as $value_2) {
+                $values_2[] = $this->serializer->serialize($value_2, 'raw', $context);
             }
-            $data->{'customFields'} = $values_1;
+            $data->{'customFields'} = $values_2;
         }
         if (null !== $object->getRecruiterUserId()) {
-            $values_2 = [];
-            foreach ($object->getRecruiterUserId() as $value_2) {
-                $values_2[] = $value_2;
+            $values_3 = [];
+            foreach ($object->getRecruiterUserId() as $value_3) {
+                $values_3[] = $value_3;
             }
-            $data->{'recruiterUserId'} = $values_2;
+            $data->{'recruiterUserId'} = $values_3;
         }
 
         return $data;

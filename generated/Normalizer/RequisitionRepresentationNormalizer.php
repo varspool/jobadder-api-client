@@ -69,6 +69,9 @@ class RequisitionRepresentationNormalizer extends SerializerAwareNormalizer impl
         if (property_exists($data, 'numberOfJobs')) {
             $object->setNumberOfJobs($data->{'numberOfJobs'});
         }
+        if (property_exists($data, 'source')) {
+            $object->setSource($data->{'source'});
+        }
         if (property_exists($data, 'workplaceAddress')) {
             $object->setWorkplaceAddress($this->serializer->deserialize($data->{'workplaceAddress'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyAddressModel', 'raw', $context));
         }
@@ -152,6 +155,9 @@ class RequisitionRepresentationNormalizer extends SerializerAwareNormalizer impl
         }
         if (null !== $object->getNumberOfJobs()) {
             $data->{'numberOfJobs'} = $object->getNumberOfJobs();
+        }
+        if (null !== $object->getSource()) {
+            $data->{'source'} = $object->getSource();
         }
         if (null !== $object->getWorkplaceAddress()) {
             $data->{'workplaceAddress'} = $this->serializer->serialize($object->getWorkplaceAddress(), 'raw', $context);

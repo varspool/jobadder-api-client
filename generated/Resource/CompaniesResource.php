@@ -356,6 +356,87 @@ class CompaniesResource extends Resource
     }
 
     /**
+     * @param int    $companyId
+     * @param array  $parameters List of parameters
+     * @param string $fetch      Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function deleteCompanyLogo($companyId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/companies/{companyId}/logo';
+        $url        = str_replace('{companyId}', urlencode($companyId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('DELETE', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int    $companyId  Company Id
+     * @param array  $parameters List of parameters
+     * @param string $fetch      Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getCompanyLogo($companyId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/companies/{companyId}/logo';
+        $url        = str_replace('{companyId}', urlencode($companyId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int   $companyId
+     * @param array $parameters {
+     *
+     *     @var  $fileData
+     * }
+     *
+     * @param string $fetch Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function updateCompanyLogo($companyId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $queryParam->setRequired('fileData');
+        $queryParam->setFormParameters(['fileData']);
+        $url     = '/v2/companies/{companyId}/logo';
+        $url     = str_replace('{companyId}', urlencode($companyId), $url);
+        $url     = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body    = $queryParam->buildFormDataString($parameters);
+        $request = $this->messageFactory->createRequest('PUT', $url, $headers, $body);
+        $promise = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
      * @param int    $companyId  Company Id
      * @param array  $parameters List of parameters
      * @param string $fetch      Fetch mode (object or response)
@@ -386,27 +467,32 @@ class CompaniesResource extends Resource
     }
 
     /**
-     * @param int                                             $companyId  Company Id
-     * @param \Varspool\JobAdder\V2\Model\AddCompanyNoteModel $command
-     * @param array                                           $parameters List of parameters
-     * @param string                                          $fetch      Fetch mode (object or response)
+     * @param int                                               $companyId
+     * @param \Varspool\JobAdder\V2\Model\AddCompanyNoteCommand $body
+     * @param array                                             $parameters List of parameters
+     * @param string                                            $fetch      Fetch mode (object or response)
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteModel
      */
-    public function postCompanyNote($companyId, \Varspool\JobAdder\V2\Model\AddCompanyNoteModel $command, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function addCompanyNote($companyId, \Varspool\JobAdder\V2\Model\AddCompanyNoteCommand $body, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
         $url        = '/v2/companies/{companyId}/notes';
         $url        = str_replace('{companyId}', urlencode($companyId), $url);
         $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
         $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
-        $body       = $this->serializer->serialize($command, 'json');
+        $body       = $this->serializer->serialize($body, 'json');
         $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
         $promise    = $this->httpClient->sendAsyncRequest($request);
         if (self::FETCH_PROMISE === $fetch) {
             return $promise;
         }
         $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('201' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteModel', 'json');
+            }
+        }
 
         return $response;
     }
@@ -495,6 +581,36 @@ class CompaniesResource extends Resource
         if (self::FETCH_OBJECT == $fetch) {
             if ('200' == $response->getStatusCode()) {
                 return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\RequisitionListRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int    $companyId
+     * @param array  $parameters List of parameters
+     * @param string $fetch      Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\CategoryListRepresentation
+     */
+    public function getCompanySkills($companyId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/companies/{companyId}/skills';
+        $url        = str_replace('{companyId}', urlencode($companyId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\CategoryListRepresentation', 'json');
             }
         }
 

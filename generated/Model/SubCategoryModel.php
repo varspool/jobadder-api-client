@@ -12,6 +12,10 @@ class SubCategoryModel
      * @var string
      */
     protected $name;
+    /**
+     * @var SkillCategoryModel[]
+     */
+    protected $skills;
 
     /**
      * @return int
@@ -49,6 +53,26 @@ class SubCategoryModel
     public function setName($name = null)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return SkillCategoryModel[]
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param SkillCategoryModel[] $skills
+     *
+     * @return self
+     */
+    public function setSkills(array $skills = null)
+    {
+        $this->skills = $skills;
 
         return $this;
     }

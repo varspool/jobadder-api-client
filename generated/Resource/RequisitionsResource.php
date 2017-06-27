@@ -211,6 +211,33 @@ class RequisitionsResource extends Resource
     /**
      * @param int    $requisitionId
      * @param string $attachmentType
+     * @param array  $parameters     List of parameters
+     * @param string $fetch          Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getLatestRequisitionAttachment($requisitionId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/requisitions/{requisitionId}/attachments/{attachmentType}';
+        $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
+        $url        = str_replace('{attachmentType}', urlencode($attachmentType), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+
+        return $response;
+    }
+
+    /**
+     * @param int    $requisitionId
+     * @param string $attachmentType
      * @param array  $parameters     {
      *
      *     @var  $fileData
@@ -220,7 +247,7 @@ class RequisitionsResource extends Resource
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function postRequisitionAttachment($requisitionId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
+    public function addRequisitionAttachment($requisitionId, $attachmentType, $parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
         $queryParam->setRequired('fileData');
@@ -233,62 +260,6 @@ class RequisitionsResource extends Resource
         $body    = $queryParam->buildFormDataString($parameters);
         $request = $this->messageFactory->createRequest('POST', $url, $headers, $body);
         $promise = $this->httpClient->sendAsyncRequest($request);
-        if (self::FETCH_PROMISE === $fetch) {
-            return $promise;
-        }
-        $response = $promise->wait();
-
-        return $response;
-    }
-
-    /**
-     * @param int    $requisitionId
-     * @param string $attachmentType
-     * @param int    $attachmentId
-     * @param array  $parameters     List of parameters
-     * @param string $fetch          Fetch mode (object or response)
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getRequisitionAttachment($requisitionId, $attachmentType, $attachmentId, $parameters = [], $fetch = self::FETCH_OBJECT)
-    {
-        $queryParam = new QueryParam();
-        $url        = '/v2/requisitions/{requisitionId}/attachments/{attachmentType}/{attachmentId}';
-        $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
-        $url        = str_replace('{attachmentType}', urlencode($attachmentType), $url);
-        $url        = str_replace('{attachmentId}', urlencode($attachmentId), $url);
-        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
-        $body       = $queryParam->buildFormDataString($parameters);
-        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
-        $promise    = $this->httpClient->sendAsyncRequest($request);
-        if (self::FETCH_PROMISE === $fetch) {
-            return $promise;
-        }
-        $response = $promise->wait();
-
-        return $response;
-    }
-
-    /**
-     * @param int    $requisitionId
-     * @param string $type
-     * @param array  $parameters    List of parameters
-     * @param string $fetch         Fetch mode (object or response)
-     *
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getLatestRequisitionAttachment($requisitionId, $type, $parameters = [], $fetch = self::FETCH_OBJECT)
-    {
-        $queryParam = new QueryParam();
-        $url        = '/v2/requisitions/{requisitionId}/attachments/{type}/latest';
-        $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
-        $url        = str_replace('{type}', urlencode($type), $url);
-        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
-        $headers    = array_merge(['Host' => 'api.jobadder.com'], $queryParam->buildHeaders($parameters));
-        $body       = $queryParam->buildFormDataString($parameters);
-        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
-        $promise    = $this->httpClient->sendAsyncRequest($request);
         if (self::FETCH_PROMISE === $fetch) {
             return $promise;
         }
@@ -328,6 +299,67 @@ class RequisitionsResource extends Resource
         if (self::FETCH_OBJECT == $fetch) {
             if ('200' == $response->getStatusCode()) {
                 return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\RequisitionHistoryModel', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int    $requisitionId Requisition Id
+     * @param array  $parameters    List of parameters
+     * @param string $fetch         Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteListRepresentation
+     */
+    public function getRequisitionNotes($requisitionId, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/requisitions/{requisitionId}/notes';
+        $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json']], $queryParam->buildHeaders($parameters));
+        $body       = $queryParam->buildFormDataString($parameters);
+        $request    = $this->messageFactory->createRequest('GET', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('200' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteListRepresentation', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param int                                                   $requisitionId
+     * @param \Varspool\JobAdder\V2\Model\AddRequisitionNoteCommand $body
+     * @param array                                                 $parameters    List of parameters
+     * @param string                                                $fetch         Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteModel
+     */
+    public function addRequisitionNote($requisitionId, \Varspool\JobAdder\V2\Model\AddRequisitionNoteCommand $body, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/requisitions/{requisitionId}/notes';
+        $url        = str_replace('{requisitionId}', urlencode($requisitionId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $body       = $this->serializer->serialize($body, 'json');
+        $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('201' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteModel', 'json');
             }
         }
 

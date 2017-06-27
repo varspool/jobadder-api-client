@@ -186,6 +186,37 @@ class JobsResource extends Resource
     }
 
     /**
+     * @param int                                                $jobId
+     * @param \Varspool\JobAdder\V2\Model\AddJobOrderNoteCommand $body
+     * @param array                                              $parameters List of parameters
+     * @param string                                             $fetch      Fetch mode (object or response)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|\Varspool\JobAdder\V2\Model\NoteModel
+     */
+    public function addJobOrderNote($jobId, \Varspool\JobAdder\V2\Model\AddJobOrderNoteCommand $body, $parameters = [], $fetch = self::FETCH_OBJECT)
+    {
+        $queryParam = new QueryParam();
+        $url        = '/v2/jobs/{jobId}/notes';
+        $url        = str_replace('{jobId}', urlencode($jobId), $url);
+        $url        = $url . ('?' . $queryParam->buildQueryString($parameters));
+        $headers    = array_merge(['Host' => 'api.jobadder.com', 'Accept' => ['application/json'], 'Content-Type' => 'application/json'], $queryParam->buildHeaders($parameters));
+        $body       = $this->serializer->serialize($body, 'json');
+        $request    = $this->messageFactory->createRequest('POST', $url, $headers, $body);
+        $promise    = $this->httpClient->sendAsyncRequest($request);
+        if (self::FETCH_PROMISE === $fetch) {
+            return $promise;
+        }
+        $response = $promise->wait();
+        if (self::FETCH_OBJECT == $fetch) {
+            if ('201' == $response->getStatusCode()) {
+                return $this->serializer->deserialize((string) $response->getBody(), 'Varspool\\JobAdder\\V2\\Model\\NoteModel', 'json');
+            }
+        }
+
+        return $response;
+    }
+
+    /**
      * @param int    $jobId      Job Id
      * @param array  $parameters List of parameters
      * @param string $fetch      Fetch mode (object or response)

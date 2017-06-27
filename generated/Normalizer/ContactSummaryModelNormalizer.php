@@ -75,6 +75,9 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         if (property_exists($data, 'company')) {
             $object->setCompany($this->serializer->deserialize($data->{'company'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyNameModel', 'raw', $context));
         }
+        if (property_exists($data, 'officeAddress')) {
+            $object->setOfficeAddress($this->serializer->deserialize($data->{'officeAddress'}, 'Varspool\\JobAdder\\V2\\Model\\CompanyAddressModel', 'raw', $context));
+        }
 
         return $object;
     }
@@ -120,6 +123,9 @@ class ContactSummaryModelNormalizer extends SerializerAwareNormalizer implements
         }
         if (null !== $object->getCompany()) {
             $data->{'company'} = $this->serializer->serialize($object->getCompany(), 'raw', $context);
+        }
+        if (null !== $object->getOfficeAddress()) {
+            $data->{'officeAddress'} = $this->serializer->serialize($object->getOfficeAddress(), 'raw', $context);
         }
 
         return $data;

@@ -45,6 +45,12 @@ class ContactLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         if (property_exists($data, 'company')) {
             $object->setCompany($data->{'company'});
         }
+        if (property_exists($data, 'officeAddress')) {
+            $object->setOfficeAddress($data->{'officeAddress'});
+        }
+        if (property_exists($data, 'skills')) {
+            $object->setSkills($data->{'skills'});
+        }
         if (property_exists($data, 'notes')) {
             $object->setNotes($data->{'notes'});
         }
@@ -72,6 +78,12 @@ class ContactLinksNormalizer extends SerializerAwareNormalizer implements Denorm
         }
         if (null !== $object->getCompany()) {
             $data->{'company'} = $object->getCompany();
+        }
+        if (null !== $object->getOfficeAddress()) {
+            $data->{'officeAddress'} = $object->getOfficeAddress();
+        }
+        if (null !== $object->getSkills()) {
+            $data->{'skills'} = $object->getSkills();
         }
         if (null !== $object->getNotes()) {
             $data->{'notes'} = $object->getNotes();

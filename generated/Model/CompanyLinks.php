@@ -11,6 +11,10 @@ class CompanyLinks
     /**
      * @var string
      */
+    protected $logo;
+    /**
+     * @var string
+     */
     protected $contacts;
     /**
      * @var string
@@ -20,6 +24,10 @@ class CompanyLinks
      * @var string
      */
     protected $addresses;
+    /**
+     * @var string
+     */
+    protected $skills;
     /**
      * @var string
      */
@@ -65,6 +73,26 @@ class CompanyLinks
     public function setSelf($self = null)
     {
         $this->self = $self;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    /**
+     * @param string $logo
+     *
+     * @return self
+     */
+    public function setLogo($logo = null)
+    {
+        $this->logo = $logo;
 
         return $this;
     }
@@ -125,6 +153,26 @@ class CompanyLinks
     public function setAddresses($addresses = null)
     {
         $this->addresses = $addresses;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSkills()
+    {
+        return $this->skills;
+    }
+
+    /**
+     * @param string $skills
+     *
+     * @return self
+     */
+    public function setSkills($skills = null)
+    {
+        $this->skills = $skills;
 
         return $this;
     }
