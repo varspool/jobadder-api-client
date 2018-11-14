@@ -28,6 +28,7 @@ class ContactsResource extends Resource
     public function findContacts($parameters = [], $fetch = self::FETCH_OBJECT)
     {
         $queryParam = new QueryParam();
+        $queryParam->setDefault('email', null);
         $queryParam->setDefault('offset', null);
         $queryParam->setDefault('limit', null);
         $queryParam->setDefault('contactId', null);
